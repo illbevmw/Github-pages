@@ -1,0 +1,49 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # mainブランチへのプッシュをトリガーにする (お使いのブランチ名に合わせてください)
+  workflow_dispatch: # 手動実行を可能にする
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js # ★追加: Node.jsのセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # 使用するNode.jsのバージョン。適宜変更してもOK
+
+      - name: Install dependencies # ★追加: minifyツールのインストール
+        run: npm install
+
+      - name: Minify HTML and CSS # ★追加: minify処理の実行
+        run: npm run minify
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist' # ★変更: デプロイするディレクトリを 'dist' に変更
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
