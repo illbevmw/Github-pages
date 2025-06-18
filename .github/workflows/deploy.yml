@@ -24,12 +24,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Node.js # ★追加: Node.jsのセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # 使用するNode.jsのバージョン。適宜変更してもOK
+
+      - name: Install dependencies # ★追加: minifyツールのインストール
+        run: npm install
+
+      - name: Minify HTML and CSS # ★追加: minify処理の実行
+        run: npm run minify
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.' # リポジトリのルートディレクトリにあるファイルをデプロイする
+          path: './dist' # ★変更: デプロイするディレクトリを 'dist' に変更
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
