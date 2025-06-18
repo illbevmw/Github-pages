@@ -12,7 +12,7 @@
 
     "minify-css": "find src -type f -name '*.css' -exec bash -c 'output_path=\"dist/${0#src/}\"; mkdir -p \"$(dirname \"$output_path\")\" && npx clean-css-cli -o \"$output_path\" \"$0\"' {} \\;",
 
-    "copy-assets": "npx cpx \"src/**\" dist --include \"**/*.{js,png,json}\" --exclude \"**/*bak*\"",
+    "copy-assets": "npx cpx \"src/**/*.{js,png,json}\" dist --ignore \"**/*bak*\"",
 
     "build": "npm run clean && npm run minify-html && npm run minify-css && npm run copy-assets"
   },
