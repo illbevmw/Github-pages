@@ -20,9 +20,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "clean-css": "^5.3.3",  // clean-css-cli ‚©‚ç clean-css ‚É•ÏX
+    "clean-css": "^5.3.3",
     "html-minifier-terser": "^7.1.0",
     "copy-anything": "^2.0.0",
-    "glob": "^10.4.5" // š‚±‚Ìs‚ğ’Ç‰Á
+    "glob": "^10.4.5"
   }
 }
