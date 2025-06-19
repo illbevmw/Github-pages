@@ -33,11 +33,11 @@ jobs:
       - name: Install dependencies # ★追加: minifyツールのインストール
         run: npm install
 
-      ### - name: Minify HTML and CSS # ★追加: minify処理の実行
-      ### run: npm run minify
+      - name: Minify HTML and CSS # ★追加: minify処理の実行
+        run: npm run minify
 
-      - name: Build and Optimize Site # ★ここが重要: 'npm run build' に変更する
-        run: npm run build
+      ### - name: Build and Optimize Site # ★ここが重要: 'npm run build' に変更する
+      ### run: npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
