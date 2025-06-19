@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A test repository for GitHub Pages with GitHub Actions for minify.",
   "main": "index.js",
-
   "scripts": {
 
     "clean": "rm -rf dist",
@@ -12,7 +11,7 @@
 
     "minify-css": "find src -type f -name '*.css' -exec bash -c 'output_path=\"dist/${0#src/}\"; mkdir -p \"$(dirname \"$output_path\")\" && npx clean-css-cli -o \"$output_path\" \"$0\"' {} \\;",
 
-    "copy-assets": "mkdir -p dist && rsync -av --exclude='*bak*' --include='*.js' --include='*.png' --include='*.json' --exclude='*' src/ dist/",
+    "copy-assets": "node -e \"require('copy-anything').copy({ from: 'src', to: 'dist', ignore: ['**/*.html', '**/*.css', '**/*bak*', '**/package.json', '**/package-lock.json', '**/node_modules/**'] })\"",
 
     "build": "npm run clean && npm run minify-html && npm run minify-css && npm run copy-assets"
   },
@@ -22,6 +21,8 @@
   "license": "ISC",
   "devDependencies": {
     "clean-css-cli": "^5.6.3",
-    "html-minifier-terser": "^7.1.0"
+    "html-minifier-terser": "^7.1.0",
+    "copy-anything": "^2.0.0"
+
   }
 }
