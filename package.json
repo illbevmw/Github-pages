@@ -24,6 +24,7 @@
     "clean-css": "^5.3.3",
     "html-minifier-terser": "^7.1.0",
     "copy-anything": "^2.0.0",
-    "glob": "^10.4.5"
+    "glob": "^10.4.5",
+    "fs-extra": "^11.2.0"
   }
 }
