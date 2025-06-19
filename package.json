@@ -11,12 +11,11 @@
 
     "minify-css": "node -e \"const glob = require('glob'); const path = require('path'); const fs = require('fs'); const CleanCSS = require('clean-css'); const cleancss = new CleanCSS(); glob.sync('src/**/*.css', { ignore: ['**/node_modules/**'] }).forEach(file => { const outputPath = path.join('dist', path.relative('src', file)); fs.mkdirSync(path.dirname(outputPath), { recursive: true }); const css = fs.readFileSync(file, 'utf8'); fs.writeFileSync(outputPath, cleancss.minify(css).styles); });\"",
 
-    "copy-assets": "node -e \"const fse = require('fs-extra'); fse.copySync('src', 'dist', { filter: (src, dest) => { return !src.includes('.html') && !src.includes('.css') && !src.includes('node_modules') && !src.includes('package.json') && !src.includes('package-lock.json'); } });\"",
+    "copy-assets": "node -e \"const glob = require('glob'); const path = require('path'); const fs = require('fs'); const copyFiles = glob.sync('src/**/*', { ignore: ['**/*.html', '**/*.css', '**/node_modules/**', '**/package.json', '**/package-lock.json', '**/README.md'] }); for (const file of copyFiles) { if (fs.statSync(file).isFile()) { const outputPath = path.join('dist', path.relative('src', file)); fs.mkdirSync(path.dirname(outputPath), { recursive: true }); fs.copyFileSync(file, outputPath); } }\"",
 
     "build": "npm run clean && npm run minify-html && npm run minify-css && npm run copy-assets"
 
   },
-
   "keywords": [],
   "author": "",
   "license": "ISC",
